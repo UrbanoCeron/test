@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { INVALID_MIN, LIMIT_VALUES, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT } from '../constants/constants';
-import { Fight, getArrayLevelVillains, getValues, validAllNumbers, validLevelsHeroes, validLimit } from '../src/fin';
+import { Fight, getArrayLevelVillains, getValues, validAllNumbers, validLevelsHeroes, validLevesVillains, validLimit } from '../src/fin';
 
 describe('Finn', () => {
 
@@ -87,6 +87,14 @@ describe('Finn', () => {
     it('should valid validLevelsHeroes',() => {
         try {
             validLevelsHeroes([-10,1]);
+        } catch (error) {
+            expect(LIMIT_VALUES).toBe(error.message);   
+        }
+    });
+
+    it('should valid validLevesVillains',() => {
+        try {
+            validLevesVillains([-20000000000000,1]);
         } catch (error) {
             expect(LIMIT_VALUES).toBe(error.message);   
         }

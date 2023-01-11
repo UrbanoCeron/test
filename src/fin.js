@@ -27,7 +27,7 @@ export const validLevelsHeroes = (levelFinn,levelJake) => {
 }
 
 export const validLevesVillains = (arrayViallains) => {
-    if(!arrayViallains.every( villain => (Math.pow(-10,9) <= villain <= Math.pow(10,9)))) {
+    if(!arrayViallains.every( villain => (villain >= Math.pow(-10,9) && villain <= Math.pow(10,9)) )) {
         throw new Error(LIMIT_VALUES)
     }
 }
