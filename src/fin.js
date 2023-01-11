@@ -7,22 +7,32 @@ import { INVALID_MIN, INVALID_PARAM, LIMIT_VALUES, LOSER, NOT_COTAIND_VALID_ELEM
 
 export const Fight = (valueOne,valueTwo) => {
     let {length,levelFinn,levelJake} = getValues(valueOne);
+    validLengthArray(length);
+    validLevelsHeroes(levelFinn,levelJake);
     let arrayViallains = getArrayLevelVillains(length,valueTwo);
-    validParams({length,levelFinn,levelJake,arrayViallains})
+    validLevesVillains(arrayViallains);
     return meetingFight({levelFinn,levelJake,arrayViallains}) ? WINNER : LOSER;
 }
 
-export const validParams = ({length,levelFinn,levelJake,arrayViallains}) => {
-    if( !(1 <= length <= Math.pow(10,5))) {
+export const validLengthArray = (length) => {
+    if( (length <= 1 || length >= Math.pow(10,5))) {
         throw new Error(LIMIT_VALUES)
     }
-    if(![levelFinn,levelJake].every( level => (0 <= level <= Math.pow(10,5)))) {
+}
+
+export const validLevelsHeroes = (levelFinn,levelJake) => {
+    if(levelFinn === 10) {
+        console.log(':D');
+    }
+    if([levelFinn,levelJake].every( level => (level >= 0 || level <= Math.pow(10,5)))) {
         throw new Error(LIMIT_VALUES)
     }
+}
+
+export const validLevesVillains = (arrayViallains) => {
     if(!arrayViallains.every( villain => (Math.pow(-10,9) <= villain <= Math.pow(10,9)))) {
         throw new Error(LIMIT_VALUES)
     }
-    
 }
 
 export const meetingFight = ({levelFinn,levelJake,arrayViallains}) => {
