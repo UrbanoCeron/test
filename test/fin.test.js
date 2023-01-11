@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { INVALID_MIN, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT } from '../constants/constants';
+import { INVALID_MIN, LIMIT_VALUES, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT } from '../constants/constants';
 import { Fight, getArrayLevelVillains, getValues, validAllNumbers, validLimit } from '../src/fin';
 
 describe('Finn', () => {
@@ -51,6 +51,15 @@ describe('Finn', () => {
         expect(firstVillain).toBe(10);
         expect(thirdVillain).toBe(30);
     })
+
+    /* TODO: PRUEBA FINAL */
+    it('should valid validations',() => {
+        try {
+            Fight('4 200000000000000000000000 1','2 1 11 15');
+        } catch (error) {
+            expect(LIMIT_VALUES).toBe(error.message);
+        }
+    });
 
     /* TODO: PRUEBA FINAL */
     it('should valid Fight',() => {

@@ -1,4 +1,4 @@
-import { INVALID_MIN, INVALID_PARAM, LOSER, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT, WINNER } from "../constants/constants";
+import { INVALID_MIN, INVALID_PARAM, LIMIT_VALUES, LOSER, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT, WINNER } from "../constants/constants";
 
 // <------ VARIABLES ------> 
 // length == N
@@ -8,7 +8,22 @@ import { INVALID_MIN, INVALID_PARAM, LOSER, NOT_COTAIND_VALID_ELEMENTS, REQUIRES
 export const Fight = (valueOne,valueTwo) => {
     let {length,levelFinn,levelJake} = getValues(valueOne);
     let arrayViallains = getArrayLevelVillains(length,valueTwo);
+    validParams({length,levelFinn,levelJake,arrayViallains})
     return meetingFight({levelFinn,levelJake,arrayViallains}) ? WINNER : LOSER;
+}
+
+export const validParams = ({length,levelFinn,levelJake,arrayViallains}) => {
+    if( 1 <= length <= Math.pow(10,5)) {
+        return;
+    }
+    if([levelFinn,levelJake].find( level => (0 <= level <= Math.pow(10,5)))) {
+        return;
+    }
+    if(arrayViallains.find( villain => (Math.pow(-10,9) <= villain <= Math.pow(10,9)))) {
+        return;
+    }
+    throw new Error(LIMIT_VALUES)
+    
 }
 
 export const meetingFight = ({levelFinn,levelJake,arrayViallains}) => {
