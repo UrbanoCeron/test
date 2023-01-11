@@ -52,10 +52,17 @@ describe('Finn', () => {
         expect(thirdVillain).toBe(30);
     })
 
-    /* TODO: PRUEBA FINAL */
     it('should valid validations',() => {
         try {
             Fight('4 200000000000000000000000 1','2 1 11 15');
+        } catch (error) {
+            expect(LIMIT_VALUES).toBe(error.message);
+        }
+    });
+
+    it('should valid validations case 2',() => {
+        try {
+            Fight('4 1 200000000000000000000000','2 1 11 15');
         } catch (error) {
             expect(LIMIT_VALUES).toBe(error.message);
         }

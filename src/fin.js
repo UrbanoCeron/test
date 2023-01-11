@@ -13,16 +13,15 @@ export const Fight = (valueOne,valueTwo) => {
 }
 
 export const validParams = ({length,levelFinn,levelJake,arrayViallains}) => {
-    if( 1 <= length <= Math.pow(10,5)) {
-        return;
+    if( !(1 <= length <= Math.pow(10,5))) {
+        throw new Error(LIMIT_VALUES)
     }
-    if([levelFinn,levelJake].find( level => (0 <= level <= Math.pow(10,5)))) {
-        return;
+    if(![levelFinn,levelJake].every( level => (0 <= level <= Math.pow(10,5)))) {
+        throw new Error(LIMIT_VALUES)
     }
-    if(arrayViallains.find( villain => (Math.pow(-10,9) <= villain <= Math.pow(10,9)))) {
-        return;
+    if(!arrayViallains.every( villain => (Math.pow(-10,9) <= villain <= Math.pow(10,9)))) {
+        throw new Error(LIMIT_VALUES)
     }
-    throw new Error(LIMIT_VALUES)
     
 }
 
