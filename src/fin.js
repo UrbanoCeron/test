@@ -1,14 +1,43 @@
-import { INVALID_MIN, INVALID_PARAM, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT } from "../constants/constants";
+import { INVALID_MIN, INVALID_PARAM, LOSER, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT, WINNER } from "../constants/constants";
 
 // <------ VARIABLES ------> 
 // length == N
 // levelFinn == P
 // arrayViallains = A
 
-export const Fight = () => {
-    let {length,levelFinn,levelJake} = getValues('4 2 1');
-    let arrayViallains = getArrayLevelVillains(length,'2 1 11 15');
+export const Fight = (valueOne,valueTwo) => {
+    let {length,levelFinn,levelJake} = getValues(valueOne);
+    let arrayViallains = getArrayLevelVillains(length,valueTwo);
+    return meetingFight({levelFinn,levelJake,arrayViallains}) ? WINNER : LOSER;
 }
+
+export const meetingFight = ({levelFinn,levelJake,arrayViallains}) => {
+    let useJake = true;
+    arrayViallains.sort((a,b) => a-b );
+    let defeatedVillains = [];
+    for (let index = 0; index < arrayViallains.length; index++) {
+        const villain = arrayViallains[index];
+        if(levelFinn > villain) {
+            levelFinn = levelFinn + villain;
+            defeatedVillains.push(villain);
+            continue;
+        } else if(villain > levelFinn && useJake) {
+            useJake = false;
+            if(plusPowers(levelFinn,levelJake) > villain) {
+                levelFinn = levelFinn + villain
+                defeatedVillains.push(villain);
+                continue;
+            } else {
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+    return defeatedVillains.length === arrayViallains.length;
+}
+
+export const plusPowers = (levelFinn,levelJake) => ((levelFinn + levelJake) * 2)
 
 export const getValues = (rowOne) => {
     if(typeof rowOne !== 'string') {
