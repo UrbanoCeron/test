@@ -15,16 +15,13 @@ export const Fight = (valueOne,valueTwo) => {
 }
 
 export const validLengthArray = (length) => {
-    if( (length <= 1 || length >= Math.pow(10,5))) {
+    if( (length < 1 || length >= Math.pow(10,5))) {
         throw new Error(LIMIT_VALUES)
     }
 }
 
 export const validLevelsHeroes = (levelFinn,levelJake) => {
-    if(levelFinn === 10) {
-        console.log(':D');
-    }
-    if([levelFinn,levelJake].every( level => (level >= 0 || level <= Math.pow(10,5)))) {
+    if(![levelFinn,levelJake].every( level => (level >= 0 && level <= Math.pow(10,5)))) {
         throw new Error(LIMIT_VALUES)
     }
 }
