@@ -1,4 +1,4 @@
-import { INVALID_MIN, INVALID_PARAM, LIMIT_VALUES, LOSER, NOT_COTAIND_VALID_ELEMENTS, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT, WINNER } from "../constants/constants";
+import { INVALID_MIN, INVALID_PARAM, LIMIT_VALUES, LOSER, NOT_COTAIND_VALID_ELEMENTS, REGEX_NUMBER, REQUIRES_PARAMS, SHOULD_ITEM_NUMBERS, STRING_WITH_INVALID_FORMAT, WINNER } from "../constants/constants";
 
 // <------ VARIABLES ------> 
 // length == N
@@ -15,19 +15,20 @@ export const Fight = (valueOne,valueTwo) => {
 }
 
 export const validLengthArray = (length) => {
-    if( (length < 1 || length >= Math.pow(10,5))) {
+    let max = Math.pow(10,5);
+    if(!validLimit({min:1,max,val:length})) {
         throw new Error(LIMIT_VALUES)
     }
 }
 
 export const validLevelsHeroes = (levelFinn,levelJake) => {
-    if(![levelFinn,levelJake].every( level => (level >= 0 && level <= Math.pow(10,5)))) {
+    if(![levelFinn,levelJake].every( level => validLimit({min:0,max:Math.pow(10,5),val:level}))) {
         throw new Error(LIMIT_VALUES)
     }
 }
 
 export const validLevesVillains = (arrayViallains) => {
-    if(!arrayViallains.every( villain => (villain >= Math.pow(-10,9) && villain <= Math.pow(10,9)) )) {
+    if(!arrayViallains.every( villain => validLimit({min:Math.pow(-10,9),max:Math.pow(10,9),val:villain}) )) {
         throw new Error(LIMIT_VALUES)
     }
 }
@@ -95,14 +96,19 @@ export const validLimit = ({min,max,val}) => {
     if(min>max) {
         throw new Error(INVALID_MIN);
     }
-    return (min <= val <= min);
+    return val >= min && val <= max;
 }
+
+
+const isNumber = (number) => {
+    return REGEX_NUMBER.test(number);
+};
 
 export const validAllNumbers = (args) => {
     if(!Array.isArray(args)) {
         throw new Error(INVALID_PARAM);
     } 
-    if(!args.every(item => Number(item))) {
+    if(!args.every(item => isNumber(item))) {
         throw new Error(SHOULD_ITEM_NUMBERS);
     }
 }

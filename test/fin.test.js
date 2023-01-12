@@ -70,7 +70,7 @@ describe('Finn', () => {
 
     it('should valid validations case 3',() => {
         try {
-            Fight('200000 1 1','2 1 11 15');
+            Fight('2000000 1 1','2 1 11 15');
         } catch (error) {
             expect(LIMIT_VALUES).toBe(error.message);
         }
@@ -86,7 +86,7 @@ describe('Finn', () => {
 
     it('should valid validLevelsHeroes',() => {
         try {
-            validLevelsHeroes([-10,1]);
+            validLevelsHeroes(10,1);
         } catch (error) {
             expect(LIMIT_VALUES).toBe(error.message);   
         }
@@ -113,7 +113,22 @@ describe('Finn', () => {
 
     describe('Functions', () => {
 
+        it('should valid validLimit',() => {
+            let result = validLimit({min:1,max:10,val:8})
+            expect(result).toBeTruthy();
+            result = validLimit({min:1,max:10,val:11})
+            expect(result).toBeFalsy();
+        });
+
         it('should valid input in validLimit',() => {
+            try {
+                validLimit({min:1,max:':D',val:'10'})
+            } catch (error) {
+                expect(SHOULD_ITEM_NUMBERS).toEqual(error.message);   
+            }
+        });
+
+        it('should valid validLimit',() => {
             try {
                 validLimit({min:1,max:':D',val:'10'})
             } catch (error) {

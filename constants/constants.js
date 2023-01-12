@@ -8,4 +8,6 @@ export const LIMIT_VALUES = 'Los valores no estan en el limite';
 export const WINNER = 'SI';
 export const LOSER = 'NO';
 
+export const REGEX_NUMBER = /^\s*[+-]?(\d+|\d*\.\d+|\d+\.\d*)([Ee][+-]?\d+)?\s*$/
+
 
